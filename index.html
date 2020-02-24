@@ -6,96 +6,182 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <div title="sort-div">
-            <p title="selection-sort">
-                <pre>
+        <div id="main">
+            <div id="sort-div">
+                <h1>SORT</h1>
+                <pre id="selection-sort">
                     <code>
-    public void selectionSort() {
-        int size = al.size();
-        for(int i = 0; i <= size - 2; i++) {
-            int posMin = i;
-            for(int j = i + 1; j <= size - 1; j++)
-                if(al.get(j).compareTo(al.get(posMin)) < 0) 
-                    posMin = j;
-            if(posMin != i)
-                al.set(i, al.set(posMin, al.get(i)));
-        }
-    }
+<!--                 -->public void selectionSort() {
+<!--                 -->    int size = al.size();
+<!--                 -->    for(int i = 0; i <= size - 2; i++) {
+<!--                 -->        int posMin = i;
+<!--                 -->        for(int j = i + 1; j <= size - 1; j++)
+<!--                 -->            if(al.get(j).compareTo(al.get(posMin)) < 0) 
+<!--                 -->                posMin = j;
+<!--                 -->        if(posMin != i)
+<!--                 -->            al.set(i, al.set(posMin, al.get(i)));
+<!--                 -->    }
+<!--                 -->}
                     </code>
                 </pre>
-            </p>
+                <pre id="bubble-sort">
+                    <code>
+<!--                 -->public void bubbleSort() {
+<!--                 -->     for(int i = 0; i < al.size(); i++)
+<!--                 -->         for(int j = 0; j < al.size() - i - 1; j++) 
+<!--                 -->             if(al.get(j).compareTo(al.get(j+1)) > 0) {
+<!--                 -->                 Long temp = al.get(j);
+<!--                 -->                 al.set(j, al.get(j+1);
+<!--                 -->                 al.set(j+1, temp);
+<!--                 -->             }
+<!--                 -->}
+                    </code>
+                </pre>
+                <pre id="insertion-sort">
+                    <code>
+<!--                 -->public void insertionSort() {
+<!--                 -->		for(int i = 1; i < al.size(); i++) {
+<!--                 -->			long n = al.get(i);
+<!--                 -->			int j = i - 1;
+<!--                 -->			while((j >= 0) && (n < al.get(j))) {
+<!--                 -->				al.set(j + 1, al.get(j));
+<!--                 -->		    	j--;
+<!--                 -->			}
+<!--                 -->     	al.set(j+1, n);
+<!--                 -->     }
+<!--                 -->}
+                    </code>
+                </pre>
+                <pre id="collection-sort">
+                    <code>
+<!--                 -->public void collectionSort() {
+<!--                 -->	Collections.sort(al);
+<!--                 -->}
+                    </code>
+                </pre>
+                <pre id="quick-sort">
+                    <code>
+<!--                 -->public void quickSort(int left, int right) {
+<!--                 -->	if(left < right) {
+<!--                 -->		int p = partition(left, right);
+<!--                 -->		quickSort(left, p-1);
+<!--                 -->		quickSort(p+1, right);
+<!--                 -->	}
+<!--                 -->}
+		
+<!--                 -->public int partition(int left, int right) {
+<!--                 -->	int i = left;
+<!--                 -->	int j = right - 1;
+<!--                 -->	long pivot = al.get(right);
+<!--                 -->	while(i < j) {
+<!--                 -->    	while(i < right && al.get(i) <= pivot)
+<!--                 -->			i++;
+<!--                 -->		while(j > left && al.get(j) >= pivot) 
+<!--                 -->			j--;
+<!--                 -->		if(i < j) {
+<!--                 -->			long help = al.get(i);
+<!--                 -->			al.set(i, al.get(j));
+<!--                 -->			al.set(j, help);
+<!--                 -->		}
+<!--                 -->	}
+<!--                 -->	if(al.get(i) > pivot) {
+<!--                 -->		al.set(right, al.get(i));
+<!--                 -->		al.set(i, pivot);
+<!--                 -->	}
+<!--                 -->	return i;
+<!--                 -->}
+                    </code>
+                </pre>
+            </div>
 
-            <p title="bubble-sort">
-                    <pre>
-                        <code>
-    public void selectionSort() {
-        int size = al.size();
-        for(int i = 0; i <= size - 2; i++) {
-            int posMin = i;
-            for(int j = i + 1; j <= size - 1; j++)
-                if(al.get(j).compareTo(al.get(posMin)) < 0) 
-                    posMin = j;
-            if(posMin != i)
-                al.set(i, al.set(posMin, al.get(i)));
-        }
-    }
-                        </code>
-                    </pre>
-            </p>
-
-            <p title="insertion-sort">
-                    <pre>
-                        <code>
-    public void selectionSort() {
-        int size = al.size();
-        for(int i = 0; i <= size - 2; i++) {
-            int posMin = i;
-            for(int j = i + 1; j <= size - 1; j++)
-                if(al.get(j).compareTo(al.get(posMin)) < 0) 
-                    posMin = j;
-            if(posMin != i)
-                al.set(i, al.set(posMin, al.get(i)));
-        }
-    }
-                        </code>
-                    </pre>
-            </p>
-
-            <p title="collection-sort">
-                    <pre>
-                        <code>
-    public void selectionSort() {
-        int size = al.size();
-        for(int i = 0; i <= size - 2; i++) {
-            int posMin = i;
-            for(int j = i + 1; j <= size - 1; j++)
-                if(al.get(j).compareTo(al.get(posMin)) < 0) 
-                    posMin = j;
-            if(posMin != i)
-                al.set(i, al.set(posMin, al.get(i)));
-        }
-    }
-                        </code>
-                    </pre>
-            </p>
-
-            <p title="quick-sort">
-                    <pre>
-                        <code>
-    public void selectionSort() {
-        int size = al.size();
-        for(int i = 0; i <= size - 2; i++) {
-            int posMin = i;
-            for(int j = i + 1; j <= size - 1; j++)
-                if(al.get(j).compareTo(al.get(posMin)) < 0) 
-                    posMin = j;
-            if(posMin != i)
-                al.set(i, al.set(posMin, al.get(i)));
-        }
-    }
-                        </code>
-                    </pre>
-            </p>
-        </div>        
+            <div id="save-load-div">
+                <h1>SAVE & LOAD</h1>
+                <h2>DATA</h2>
+                <pre id="data-save-load">
+<!--             -->public void saveToDataFile(File filename) throws IOEXception {
+<!--             -->    try(DataOutputStream out = new DataOutputStream(
+<!--             -->        new BufferedOutputStream(new FileOutputStream(fileName+".dat")))) {
+<!--             -->        for(int i = 0; i < al.size(); i++) 
+<!--             -->            out.writeInt(al.get(i));
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromDataFile(File fileName) 
+<!--             -->    throws IOEXception, FileNotFoundException {
+<!--             -->    try(DataInputStream in = new DataInputStream(
+<!--             -->        new BufferedInputStream(new FileInputStream(filename+".dat")))) {
+<!--             -->        boolean eof = false;
+<!--             -->        while(!eof) {
+<!--             -->            try {
+<!--             -->                al.add(new Object(in.readInt(), in.readInt()));
+<!--             -->            }
+<!--             -->            catch(EOFException e) {
+<!--             -->                eof = true;
+<!--             -->            }
+<!--             -->        }
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>TEXT</h2>
+                <pre id="text-save-load">
+<!--             -->public void saveToTextFile(File filename) throws IOException {
+<!--             -->    try(PrintWriter out = new PrintWriter(new FileWriter(filename+".txt"))) {
+<!--             -->        for(int i = 0; i < al.size(); i++) {
+<!--             -->            out.println(al.get(i).toString();
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromTextFile(File filename) 
+<!--             -->    throws IOEXception, FileNotFoundException {
+<!--             -->    al = new ArrayList<>();
+<!--             -->    try(BufferedReader in = new BufferedReader(new FileReader(filename+".txt"))) {
+<!--             -->        String l;
+<!--             -->        while((l = in.readLine()) != null) {
+<!--             -->            String[] line = l.split(" ");
+<!--             -->            al.add(...);
+<!--             -->        }
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2 class="error">BINARY</h2>
+                <pre id="binary-save-load">
+<!--             -->!!! implements Serializable
+<!--             -->public void saveToBinaryFile(File filename) throws IOException {
+<!--             -->    try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename+".bin") {
+<!--             -->        out.writeObject(al);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromBinaryFile(File filename) throws IOException, ClassNotFoundException {
+<!--             -->    try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename+".bin"))) {
+<!--             -->        al = (ArrayList<Ob>)in.readObject();
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2 class="error">XML</h2>
+                <pre id="xml-save-load">
+<!--             -->!!! external library xstream
+<!--             -->public void saveToXmlFile(File filename) throws IOException {
+<!--             -->    XStream xstream = new XStream(new DomDriver("UTF-8");
+<!--             -->    String xml = xstream.toXML(al);
+<!--             -->    try(PrintWriter out = new PrintWriter(new FileWriter(filename+".xml"))) {
+<!--             -->        out.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+<!--             -->        out.pritnln(xml);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromXMLFile(File filename) throws IOException {
+<!--             -->    XStream xstream = new XStream(new DomDriver("UTF-8");
+<!--             -->    try(BufferedReader in = new BufferedReader(new FileReader(filename+".xml"))) {
+<!--             -->        al = (ArrayList<Object>) xstream.fromXML(in);
+<!--             -->    }
+<!--             -->    catch(com.thoughtworks.xstream.mapper.CannotResolveClassException e) {
+<!--             -->        JOptionPane.showMessageDialog(null, "Cannot resolve XML Tags in file '"+filename+"'",
+<!--             -->        "XML read Error", JOptionPane.ERROR_MESSAGE);
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+        </div>             
     </body>
 </html>

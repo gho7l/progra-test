@@ -11,6 +11,7 @@ body {
 #main div {
     background-color: aqua;
     border: 2px black solid;
+    margin: 4px 4pxs;
     padding: 6px;
     display: inline-flex;
     flex-direction: column;
@@ -33,10 +34,6 @@ h2 {
     padding: 15px;
     margin-top: 3px;
     margin-bottom: 2px;
-}
-
-.error {
-    background-color: red;
 }
 
 pre {

@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>test</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <div id="main">
+            <div id="sort-div">
+                <h1>SORT</h1>
+                <pre id="selection-sort">
+<!--             -->public void selectionSort() {
+<!--             -->    int size = al.size();
+<!--             -->    for(int i = 0; i &lt;= size - 2; i++) {
+<!--             -->        int posMin = i;
+<!--             -->        for(int j = i + 1; j &lt;= size - 1; j++)
+<!--             -->            if(al.get(j).compareTo(al.get(posMin)) &lt; 0) 
+<!--             -->                posMin = j;
+<!--             -->        if(posMin != i)
+<!--             -->            al.set(i, al.set(posMin, al.get(i)));
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <pre id="bubble-sort">
+<!--             -->public void bubbleSort() {
+<!--             -->     for(int i = 0; i &lt; al.size(); i++)
+<!--             -->         for(int j = 0; j &lt; al.size() - i - 1; j++) 
+<!--             -->             if(al.get(j).compareTo(al.get(j+1)) > 0) {
+<!--             -->                 Long temp = al.get(j);
+<!--             -->                 al.set(j, al.get(j+1);
+<!--             -->                 al.set(j+1, temp);
+<!--             -->             }
+<!--             -->}
+                </pre>
+                <pre id="insertion-sort">
+<!--             -->public void insertionSort() {
+<!--             -->		for(int i = 1; i &lt; al.size(); i++) {
+<!--             -->			long n = al.get(i);
+<!--             -->			int j = i - 1;
+<!--             -->			while((j >= 0) && (n &lt; al.get(j))) {
+<!--             -->				al.set(j + 1, al.get(j));
+<!--             -->		    	j--;
+<!--             -->			}
+<!--             -->     	al.set(j+1, n);
+<!--             -->     }
+<!--             -->}
+                </pre>
+                <pre id="collection-sort">
+<!--             -->public void collectionSort() {
+<!--             -->	Collections.sort(al);
+<!--             -->}
+                </pre>
+                <pre id="quick-sort">
+<!--             -->public void quickSort(int left, int right) {
+<!--             -->	if(left &lt; right) {
+<!--             -->		int p = partition(left, right);
+<!--             -->		quickSort(left, p-1);
+<!--             -->		quickSort(p+1, right);
+<!--             -->	}
+<!--             -->}
+		
+<!--             -->public int partition(int left, int right) {
+<!--             -->	int i = left;
+<!--             -->	int j = right - 1;
+<!--             -->	long pivot = al.get(right);
+<!--             -->	while(i &lt; j) {
+<!--             -->    	while(i &lt; right && al.get(i) &lt;= pivot)
+<!--             -->			i++;
+<!--             -->		while(j > left && al.get(j) >= pivot) 
+<!--             -->			j--;
+<!--             -->		if(i &lt; j) {
+<!--             -->			long help = al.get(i);
+<!--             -->			al.set(i, al.get(j));
+<!--             -->			al.set(j, help);
+<!--             -->		}
+<!--             -->	}
+<!--             -->	if(al.get(i) > pivot) {
+<!--             -->		al.set(right, al.get(i));
+<!--             -->		al.set(i, pivot);
+<!--             -->	}
+<!--             -->	return i;
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="save-load-div">
+                <h1>SAVE & LOAD</h1>
+                <h2>DATA</h2>
+                <pre id="data-save-load">
+<!--             -->public void saveToDataFile(File filename) throws IOEXception {
+<!--             -->    try(DataOutputStream out = new DataOutputStream(
+<!--             -->        new BufferedOutputStream(new FileOutputStream(fileName+".dat")))) {
+<!--             -->        for(int i = 0; i &lt; al.size(); i++) 
+<!--             -->            out.writeInt(al.get(i));
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromDataFile(File fileName) 
+<!--             -->    throws IOEXception, FileNotFoundException {
+<!--             -->    try(DataInputStream in = new DataInputStream(
+<!--             -->        new BufferedInputStream(new FileInputStream(filename+".dat")))) {
+<!--             -->        boolean eof = false;
+<!--             -->        while(!eof) {
+<!--             -->            try {
+<!--             -->                al.add(new Object(in.readInt(), in.readInt()));
+<!--             -->            }
+<!--             -->            catch(EOFException e) {
+<!--             -->                eof = true;
+<!--             -->            }
+<!--             -->        }
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>TEXT</h2>
+                <pre id="text-save-load">
+<!--             -->public void saveToTextFile(File filename) throws IOException {
+<!--             -->    try(PrintWriter out = new PrintWriter(new FileWriter(filename+".txt"))) {
+<!--             -->        for(int i = 0; i &lt; al.size(); i++) {
+<!--             -->            out.println(al.get(i).toString();
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromTextFile(File filename) 
+<!--             -->    throws IOEXception, FileNotFoundException {
+<!--             -->    al = new ArrayList&lt;&gt;();
+<!--             -->    try(BufferedReader in = new BufferedReader(new FileReader(filename+".txt"))) {
+<!--             -->        String l;
+<!--             -->        while((l = in.readLine()) != null) {
+<!--             -->            String[] line = l.split(" ");
+<!--             -->            al.add(...);
+<!--             -->        }
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>BINARY</h2>
+                <pre id="binary-save-load">
+<!--             -->!!! implements Serializable
+<!--             -->public void saveToBinaryFile(File filename) throws IOException {
+<!--             -->    try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename+".bin") {
+<!--             -->        out.writeObject(al);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromBinaryFile(File filename) throws IOException, ClassNotFoundException {
+<!--             -->    try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename+".bin"))) {
+<!--             -->        al = (ArrayList&lt;Object&gt;)in.readObject();
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>XML</h2>
+                <pre id="xml-save-load">
+<!--             -->!!! external library xstream
+<!--             -->public void saveToXmlFile(File filename) throws IOException {
+<!--             -->    XStream xstream = new XStream(new DomDriver("UTF-8");
+<!--             -->    String xml = xstream.toXML(al);
+<!--             -->    try(PrintWriter out = new PrintWriter(new FileWriter(filename+".xml"))) {
+<!--             -->        out.println("&lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;");
+<!--             -->        out.pritnln(xml);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromXMLFile(File filename) throws IOException {
+<!--             -->    XStream xstream = new XStream(new DomDriver("UTF-8");
+<!--             -->    try(BufferedReader in = new BufferedReader(new FileReader(filename+".xml"))) {
+<!--             -->        al = (ArrayList&lt;Object&gt;) xstream.fromXML(in);
+<!--             -->    }
+<!--             -->    catch(com.thoughtworks.xstream.mapper.CannotResolveClassException e) {
+<!--             -->        JOptionPane.showMessageDialog(null, "Cannot resolve XML Tags in file '"+filename+"'",
+<!--             -->        "XML read Error", JOptionPane.ERROR_MESSAGE);
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>FILECHOOSER</h2>
+                <pre id="filechooser">
+<!--             -->private String currentFile = System.getProperty("user.dir");
+<!--             -->private JFileChooser jfc = new JFileChooser();
+<!--             -->private final String WORKFILE="rp-workfile.csv"; 
+                    
+<!--             -->export() {
+<!--             -->    try {
+<!--             -->        jfc.setCurrentDirectory(new File(currentFile));
+<!--             -->        if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+<!--             -->            currentFile = jfc.getSelectedFile().getAbsolutePath();
+<!--             -->            al.save(currentFile);
+<!--             -->        }
+<!--             -->    }
+<!--             -->    catch(IOEXception e) {
+<!--             -->        JOptionPane.showMessageDialog(this, "Error while exporting");
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->import() {
+<!--             -->    FileNameExtensionFilter csv = new FileNameExtensionFilter("csv (*.csv)", "csv");
+<!--             -->    jfc.addChoosableFileFilter(csv);
+<!--             -->    jfc.setAcceptAllFileFilterUsed(true);
+<!--             -->    
+<!--             -->    try {
+<!--             -->        jfc.setCurrentDirectory(new File(currentFile));
+<!--             -->        if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+<!--             -->            currentFile = jfc.getSelectedFile().getAbsolutePath();
+<!--             -->            al.load(currentFile);
+<!--             -->        }
+<!--             -->    }
+<!--             -->    catch(IOEXception e) {
+<!--             -->        JOptionPane.showMessageDialog(this, "Error while importing");
+<!--             -->    } catch(InvalidFileFormatException ex) {
+<!--             -->        JOptionPane.showMessageDialog(this, "Error while importing");
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="trivia-div">
+               <h1>MOUSEEVENTS & KEYEVENTS</h1>
+                <pre>
+<!--             -->KeyEvent.KEY_PRESSED == VK_
+<!--             -->evt.getButton() == MouseEvent.BUTTON)
+<!--             -->color = JColorChooser.showDialog(this, "text", color);
+<!--             -->public static final int MAX = 100;
+<!--             -->color.getRGB();
+<!--             -->color.decode(String s);
+<!--             -->Toolkit.getDefaultToolkit().beep();
+                </pre>
+            </div>
+
+            <div id="array-div">
+                <h1>ARRAY</h1>
+                <pre>
+<!--             -->private int[] tab = new int[size];
+<!--             -->public static final int MAXSIZE = 100;
+<!--             -->private int size = 0;
+                    
+<!--             -->public int getLength() {
+<!--             -->    return tab.length;
+<!--             -->}	
+                    
+<!--             -->public int get(int i) {
+<!--             -->    if(size > MAXSIZE) 
+<!--             -->        return null;
+<!--             -->    return tab[i];
+<!--             -->}
+                    
+<!--             -->public void add2End(int i) {
+<!--             -->    if(size &lt; MAXSIZE) 
+<!--             -->        tab[size] = i++;
+<!--             -->}
+                    
+<!--             -->public void remove(int i) {
+<!--             -->    if(i &lt; size) {
+<!--             -->        for(int j = i; i &lt; size-1; i++) 
+<!--             -->            tab[i] == tab[i+1];
+<!--             -->        size--;
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="interface-div">
+                <h1>INTERFACE</h1>
+                <h2>CLASS</h2>
+                <pre id="interface-class">
+<!--             -->public interface ... {
+<!--             -->    public abstract double get...();
+<!--             -->}
+                </pre>
+                <h2>COMPARABLE&lt;OBJECT&gt;</h2>
+                <pre id="comparable">
+<!--             -->public int compareTo(int n) {
+<!--             -->    if(this.n > n) 
+<!--             -->        return 1;
+<!--             -->    else if(this.n &lt; n) 
+<!--             -->        return -1;
+<!--             -->    return 0;
+<!--             -->}
+                </pre>
+                <h2>ITERATOR</h2>
+                <pre id="iterator">
+<!--             -->In ArrayList :
+<!--             -->    public void iterate() {
+<!--             -->        Iterator iterator = al.iterator();
+<!--             -->        while(iterator.hasNext()
+<!--             -->            System.out.println(iterator.next().toString());
+<!--             -->    }
+
+<!--             -->In Array-Class :
+<!--             -->    public Iterator&lt;Object&gt; iterator() {
+<!--             -->        return new ObjectIterator(ar, size);
+<!--             -->    }
+                    
+<!--             -->"Iterator"-Class :
+<!--             -->    public class ObjectIterator implements Iterator&lt;Object&gt; {
+<!--             -->        private Object[] ar;
+<!--             -->        private int currentPosition = 0;
+<!--             -->        private int size;
+                            
+<!--             -->        public ObjectIterator(Object[] ar, int size) {
+<!--             -->            this.ar = ar;
+<!--             -->            this.size = size;
+<!--             -->        }
+                            
+<!--             -->        @Override
+<!--             -->        public boolean hasNext() {
+<!--             -->            return currentPosition &lt; size;
+<!--             -->        }
+                            
+<!--             -->        @Override
+<!--             -->        public Shape next() {
+<!--             -->            return ar[currentPosition++];
+<!--             -->        }
+<!--             -->    }
+<!--             -->In Main-Class :
+<!--             -->public static void main(String[] args) {
+<!--             -->    ...
+<!--             -->    Iterator objectList = objectList.iterator();
+<!--             -->    while(objectList.hasNext()) {
+<!--             -->        Object ob = (Object) objectList.next();
+<!--             -->        System.out.println(ob.toString());
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>CLONEABLE</h2>
+                <pre id="cloneable">
+<!--             -->CLASS (!= ArrayList) :
+<!--             --> @Override
+<!--             -->public Object clone() {
+<!--             -->    try {
+<!--             -->        return super.clone();
+<!--             -->    } catch(CloneNotSupportedException ex) {
+<!--             -->        ex.printStackTrace();
+<!--             -->    }
+<!--             -->    return null;
+<!--             -->}
+                    
+<!--             -->CLASS (= ArrayList) :
+<!--             -->    @Override
+<!--             -->    public Object clone() {
+<!--             -->        ObjectList result = null;
+<!--             -->        if(objectList != null) result = new ObjectList();
+<!--             -->        for(Object ob : objectList)
+<!--             -->            result.add((Object) ob.clone());
+<!--             -->        result result;
+<!--             -->    }
+                </pre>
+                <h2>OBSERVER & OBSERVABLE</h2>
+                <pre id="observer & observable">
+<!--             -->public class xxx extends Observable {
+
+<!--             -->    public void updateObservers() {
+<!--             -->        setChanged();
+<!--             -->        notifyObservers();
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public class xxx2 implements Observer {
+<!--             -->    public void init() {
+<!--             -->        xxx.addObserver(this);
+<!--             -->    }
+                        
+<!--             -->    @Override
+<!--             -->    public void update(Observable arg0, Object arg1) {
+<!--             -->        drawPanel.setBMap(bMap);
+<!--             -->        drawPanel.repaint();
+<!--             -->        drawPanel.requestFocus();
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="exception-div">
+                <h1>EXCEPTIONS</h1>
+                <pre>
+<!--             -->public class ...Exception extends ...Exception {
+<!--             -->    public ...Exception(String msg) {
+<!--             -->        System.out.println(msg);
+<!--             -->    }
+                        
+<!--             -->    public ...Exception() {
+<!--             -->        System.out.println("...");
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="search-div">
+                <h1>SEARCH</h1>
+                <h2>LINEAR SEARCH</h2>
+                <pre id="linear-search">
+<!--             -->public int linearSearch(int start, int end, int n) {
+<!--             -->    if(end &lt; start)
+<!--             -->        return -1;
+<!--             -->    if(tab[start] == n)
+<!--             -->        return start;
+<!--             -->    if(tab[end] == n)
+<!--             -->        return end;
+<!--             -->    return linearSearch(start+1, end-1, n);
+<!--             -->}
+                </pre>
+                <h2>BINARY SEARCH</h2>
+                <pre id="binary-search">
+<!--             -->public int binarySearch(int start, int end, int n) {
+<!--             -->    if(end >= start) {
+<!--             -->        int mid = start + (end-start)/2;
+<!--             -->        if(tab[mid] == n)
+<!--             -->            return mid;
+<!--             -->        if(tab[mid] > n)
+<!--             -->            return binarySearch(start, mid-1, n);
+<!--             -->        else
+<!--             -->            return binarySearch(mid+1, end, n);
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="string-div">
+                <h1>STRING</h1>
+                <pre>
+<!--             -->public static String delete(String target, int beginIndex, int endIndex) {
+<!--             -->    return target.substring(0, beginIndex) + target.substring(endIndex);
+<!--             -->}
+                    
+<!--             -->public static String insert(String target, String str, int index) {
+<!--             -->    return target.substring(0, index) + str + target.substring(index);
+<!--             -->}
+                    
+<!--             -->public static int count(String target, String str) {
+<!--             -->    int targetLength = target.length();
+<!--             -->    int strLength = str.length();
+<!--             -->    int count = 0;
+<!--             -->    for(int i = 0; i <= targetLength-strLength; i++) 
+<!--             -->        if(target.substring(i, i+strLength).equals(str))
+<!--             -->            count += 1;
+<!--             -->    return count;
+<!--             -->}
+                    
+<!--             -->public static int count2(String target, String str) {
+<!--             -->    int targetLength = target.length();
+<!--             -->    int strLength = str.length();
+<!--             -->    int count = 0;
+<!--             -->    for(int i = 0; i <= targetLength-strLength; i++) 
+<!--             -->        if(target.substring(i, i+strLength).equals(str)) {
+<!--             -->            count += 1;
+<!--             -->            i = i + strLength - 1;
+<!--             -->        }
+<!--             -->    return count;
+<!--             -->}
+                    
+<!--             -->public static String reverse(String target) {
+<!--             -->    String reverse = "";
+<!--             -->    for(int i = target.length()-1; i >= 0; i--)
+<!--             -->        reverse += target.charAt(i);
+<!--             -->    return reverse;
+<!--             -->}
+                    
+<!--             -->public static boolean palindromeWord(String target) {
+<!--             -->    return target.equals(reverse(target));
+<!--             -->}
+                    
+<!--             -->public static String removeAccents(String target) {
+<!--             -->    target = Normalizer.normalize(target, Normalizer.Form.NFD);
+<!--             -->    target = target.replaceAll("[\\p{InCombiningdiacriticalMarks}]", "");
+<!--             -->    return target;
+<!--             -->}
+                    
+<!--             -->public static String removeNonAlphabetical(String target) {
+<!--             -->    String newTarget = "";
+<!--             -->    for(int i = target.length() -1; i >= 0; i--) {
+<!--             -->        char c = target.charAt(i);
+<!--             -->        if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+<!--             -->            newTarget = c + newTarget;
+<!--             -->    }
+<!--             -->    return newTarget;
+<!--             -->}
+                    
+<!--             -->public static boolean palindromeSentence(String target) {
+<!--             -->    target = removeAccents(target);
+<!--             -->    target = removeNonAlphabetical(target);
+<!--             -->    target = target.toLowerCase();
+<!--             -->    return palindromeWord(target.trim());
+<!--             -->}
+                    
+<!--             -->public static String extract(String target, String separator, int n) {
+<!--             -->    String[] list = target.split(separator);
+<!--             -->    if(n >= 0 && list.length > n)
+<!--             -->        return list[n];
+<!--             -->    return "";
+<!--             -->}
+                    
+<!--             -->public static String extract2(String target, String separator, int n) {
+<!--             -->    String result = "";
+<!--             -->    int separatorLength = separator.length();
+<!--             -->    target += separator;
+<!--             -->    while(target.indexOf(separator) >= 0 && n >= 1) {
+<!--             -->        int p = target.indexOf(separator);
+<!--             -->        result = target.substring(0, p);
+<!--             -->        target = delete(target, 0, p+1);
+<!--             -->        n--;
+<!--             -->    }
+<!--             -->    if(n == 0)
+<!--             -->        return result;
+<!--             -->    else 
+<!--             -->        return "";
+<!--             -->}
+                    
+<!--             -->public static ArrayList<String> extractAll(String target, String separator) {
+<!--             -->    ArrayList<String> al = new ArrayList<>();
+<!--             -->    target += separator;
+<!--             -->    int separatorCount = count(target, separator);
+<!--             -->    for(int i = 0; i <= separatorCount; i++) 
+<!--             -->        al.add(extract(target, separator, i);
+<!--             -->    return al;
+<!--             -->}
+                    
+<!--             -->public static ArrayList<String> extractAll2(String target, String separator) {
+<!--             -->    ArrayList<String> al = new ArrayList<>();
+<!--             -->    String[] list = target.split(separator);
+<!--             -->    for(int i = 0; i < list.length; i++)
+<!--             -->        al.add(list[i]);
+<!--             -->    return al;
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="recusivite-div">
+                <h1>RECURSIVITE</h1>
+                <pre>
+<!--             -->public static double power(double x, int n) {
+<!--             -->    if(n == 0)
+<!--             -->        return 1;
+<!--             -->    else if(n > 0)
+<!--             -->        return x * power(x, n-1);
+<!--             -->    else 
+<!--             -->        return 1/(power(x, Math.abs(n)));
+<!--             -->}
+                    
+<!--             -->public static int gcd(int x, int y) {
+<!--             -->    if(y == 0)
+<!--             -->        return x;
+<!--             -->    else 
+<!--             -->        return gcd(y, x%y);
+<!--             -->}
+                    
+<!--             -->public static int factorial(int n) {
+<!--             -->    if(n == 0) 
+<!--             -->        return 1;
+<!--             -->    else
+<!--             -->        return n * factorial(n-1);
+<!--             -->}
+                    
+<!--             -->public static int fibonacci(int n) {
+<!--             -->    if(n &lt;= 2) 
+<!--             -->        return 1;
+<!--             -->    else 
+<!--             -->        return fibonacci(n-1) + fibonacci(n-2);
+<!--             -->}
+                    
+<!--             -->public static int nar(int n) {
+<!--             -->    return (fibo_i(n) - 1) * 2;
+<!--             -->}
+                    
+<!--             -->public static double newton(int a, int n) {
+<!--             -->    if(n == 0)
+<!--             -->        return a;
+<!--             -->    else {
+<!--             -->        double newton = newton(a, n-1);
+<!--             -->        return 1/2.0 * (newton + (a/newton));
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public static double taylor_e(int x, int n) {
+<!--             -->    if(n == 0) 
+<!--             -->        return 1;
+<!--             -->    else
+<!--             -->        return power(x, n) / factorial(n) + taylor_e(x, n-1);
+<!--             -->}
+                    
+<!--             -->public static double taylor_cos(int x, int n) {
+<!--             -->    if(n &lt; 0)
+<!--             -->        return 0;
+<!--             -->    else
+<!--             -->        return power(x, 4*n) / factorial(4*n) - power(x, 4*n+2) / factorial(4*n+2) + taylor_cos(x, n-1);
+<!--             -->}
+                    
+<!--             -->public static double taylor_sin(int x, int n) {
+<!--             -->    if(n &lt; 0)
+<!--             -->        return 0;
+<!--             -->    else
+<!--             -->        return power(x, 4*n+1)/factorial(4*n+1) - power(x, 4*n+3)/factorial(4*n+3) + taylor_sin(x, n-1);
+<!--             -->}
+                    
+<!--             -->public static double newton(double a, double precision) {
+<!--             -->    return newton(a, a, precision);
+<!--             -->}
+                    
+<!--             -->private static double newton(double a, double approx, double precision) {
+<!--             -->    double newApprox = 1.0/2 * (approx + a/approx);
+<!--             -->    if(Math.abs(newApprox - approx) < precision)
+<!--             -->        return newApprox;
+<!--             -->    else 
+<!--             -->        return newton(a, newApprox, precision);
+<!--             -->}
+                    
+<!--             -->public static double exp(double a, double precision) {
+<!--             -->    return exp(a, 0, precision, 0);
+<!--             -->}
+                    
+<!--             -->private static double exp(double a, double approx, double precision, int n) {
+<!--             -->    double newApprox = Math.pow(a, n)/factorial(n) + approx;
+<!--             -->    if(Math.abs(newapprox-approx) &lt; precision) {
+<!--             -->        if(n &lt; 0)
+<!--             -->            return -1;
+<!--             -->        return newApprox;
+<!--             -->    }
+<!--             -->    else
+<!--             -->        return exp(a, newApprox, precision, n+1);
+<!--             -->}
+                    
+<!--             -->public static void hanoi(int n, int i, int j) {
+<!--             -->    if(n > 0) {
+<!--             -->        hanoi(n-1, i, 6-(i+j));
+<!--             -->        System.out.println(i + " => " + j);
+<!--             -->        hanoi(n-1, 6-(i+j), j);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public Point2D drawVector(Graphics2D g, Point2D p, double length, double angle) {
+<!--             -->    Point2D pEnd = new Point2D.Float();
+<!--             -->    double newX = p.getX() + Math.cos(Math.toRadians(angle))*length;
+<!--             -->    double newY = p.getY() + Math.sin(Math.toRadians(angle))*length;
+<!--             -->    pEnd.setLocation((int) newX, (int) newY);
+<!--             -->    g.drawLine((int) p.getX(), (int) p.getY(), (int) newX, (int) newY);
+<!--             -->    return pEnd;
+<!--             -->}
+                    
+<!--             -->public void drawFractalTree(Graphics2D g, Point2D p, double length, double angle) {
+<!--             -->    if(length > 1) {
+<!--             -->        p = drawVector(g, p, length, angle);
+<!--             -->        drawFractalTree(g, p, length*f1, (angle - diffAngle));
+<!--             -->        drawFractalTree(g, p, length*f2, (angle + diffAngle));
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void SierpinskiTriangle(Graphics g, Point2D p, double width, double height, int n) {
+<!--             -->    if(n > 0) {
+<!--             -->        g.drawLine((int) p.getX(), (int) p.getY(), (int) (p.getX() - width/2.0), (int) (p.getY() + height));
+<!--             -->        g.drawLine((int) (p.getX() - width/2.0), (int) (p.getY() + height), (int) (p.getX() + width/2.0), (int) (p.getY() + height));
+<!--             -->        g.drawLine((int) (p.getX() + width/2.0), (int) (p.getY() + height),(int) (p.getX()), (int) (p.getY()));
+<!--             -->        SierpinskiTriangle(g, p, width/2.0, height/2.0, n-1);
+<!--             -->        SierpinskiTriangle(g, new Point2D.Double((int) (p.getX() - width/4.0), (int) (p.getY() + height/2.0), width/2.0, height/2, n-1);
+<!--             -->        SierpinskiTriangle(g, new Point2D.Double((int) (p.getX() + width/4.0), (int) (p.getY() + height/2.0), width/2.0, height/2, n-1);
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="linkedlist-div">
+                <h1>LINKEDKLIST</h1>
+                <pre>
+<!--             -->public class Node<E> {
+<!--             -->    protected E o = null;
+<!--             -->    protected Node<E> next = null;
+                        
+<!--             -->    public Node(E o) {
+<!--             -->        this.o = o;
+<!--             -->        next = null;
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public class SimpleLinkedList<E> implements Iterable<E>{
+<!--             -->    private Node<E> first = null;
+                        
+<!--             -->    @Override
+<!--             -->    public Iterator iterator() {
+<!--             -->        return new SimpleLinkedListIterator<E>(first);
+<!--             -->    }
+                        
+<!--             -->    public boolean add(E o) {
+<!--             -->        Node newNode = new Node<E>(o);
+<!--             -->        if(first != null) 
+<!--             -->            first = newNode;
+<!--             -->        else {
+<!--             -->            Node<E> current = first;
+<!--             -->            while(current.next != null)
+<!--             -->                current = current.next;
+<!--             -->            current.next = newNode;
+<!--             -->        }
+<!--             -->        return true;
+<!--             -->    }
+                        
+<!--             -->    public void clear() {
+<!--             -->        first = null;
+<!--             -->    }
+                        
+<!--             -->    public boolean contains(E o) {
+<!--             -->        boolean result = false;
+<!--             -->        Node<E> current = first;
+<!--             -->        while(!result && current != null) {
+<!--             -->            if(current.o.equals(o))
+<!--             -->                result = true;
+<!--             -->            else 
+<!--             -->                current = current.next;
+<!--             -->        }
+<!--             -->        return result;
+<!--             -->    }
+                        
+<!--             -->    public E get(int n) {
+<!--             -->        E result = null;
+<!--             -->        int count = 0;
+<!--             -->        Node<E> current = first;
+<!--             -->        while(current != null && count != n) {
+<!--             -->            current = current.next;
+<!--             -->            count++;
+<!--             -->        }
+<!--             -->        if(current != null && count == n)
+<!--             -->            result = current.o;
+<!--             -->        return result;
+<!--             -->    }
+                        
+<!--             -->    public int indexOf(E o) {
+<!--             -->        int result = -1;
+<!--             -->        Node<E> current = first;
+<!--             -->        int i = 1;
+<!--             -->        while(result == -1 && current != null) {
+<!--             -->            i++;
+<!--             -->            if(current.o.equals(o))
+<!--             -->                result = i;
+<!--             -->            else
+<!--             -->                current = current.next;
+<!--             -->        }
+<!--             -->        return result;
+<!--             -->    }
+                        
+<!--             -->    public boolean remove(E item) {
+<!--             -->        boolean removed = false;
+<!--             -->        if(first != null && item != null)
+<!--             -->            if(first.o.equals(item)) {
+<!--             -->                first = first.next;
+<!--             -->                removed = true;
+<!--             -->            }
+<!--             -->            else {
+<!--             -->                Node<E> pred = first;
+<!--             -->                while(pred.next != null && !pred.next.o.equals(item))
+<!--             -->                    pred = pred.next;
+<!--             -->                if(pred.next != null && pred.next.o.equals(item)) {
+<!--             -->                    pred.next = pred.next.next;
+<!--             -->                    removed = true;
+<!--             -->                }
+<!--             -->            }
+<!--             -->        return removed;
+<!--             -->    }
+                        
+<!--             -->    public int size() {
+<!--             -->        int result = 0;
+<!--             -->        Node<E> current = first;
+<!--             -->        while(current != null) {
+<!--             -->            current = current.next;
+<!--             -->            result++;
+<!--             -->        }
+<!--             -->        return result;
+<!--             -->    }
+                        
+<!--             -->    public E set(int n, E o) {
+<!--             -->        E result = null;
+<!--             -->        Node<E> current = first;
+<!--             -->        int i = 0;
+<!--             -->        while(current != null && i != n) {
+<!--             -->            current = current.next;
+<!--             -->            i++;
+<!--             -->        }
+<!--             -->        if(current != null && i == n) {
+<!--             -->            result = (E) current.o;
+<!--             -->            current.o = o;
+<!--             -->        }
+<!--             -->        return result;
+<!--             -->    }
+                        
+<!--             -->    public Object[] toArray() {
+<!--             -->        int n = size();
+<!--             -->        Object[] result = new Object[n];
+<!--             -->        Node<E> current = first;
+<!--             -->        for(int i = 0; i < n; i++) {
+<!--             -->            result[i] = (E) current.o;
+<!--             -->            current = current.next;
+<!--             -->        }
+<!--             -->        return result;
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public class SimpleLinkedListIterator<E> implements Iterator{
+<!--             -->    private Node<E> next = null;
+                        
+<!--             -->    public SimpleLinkedListIterator(Node first) {
+<!--             -->        next = first;
+<!--             -->    }
+                
+<!--             -->    @Override
+<!--             -->    public boolean hasNext() {
+<!--             -->        return next != null;
+<!--             -->    }
+                
+<!--             -->    @Override
+<!--             -->    public Object next() {
+<!--             -->        if(!hasNext())
+<!--             -->            throw new java.util.NoSuchElementException("No such element");
+<!--             -->        else {
+<!--             -->            Node<E> current = next;
+<!--             -->            next = next.next;
+<!--             -->            return current.o;
+<!--             -->        }
+<!--             -->    }
+                        
+<!--             -->    @Override
+<!--             -->    public void remove() {
+<!--             -->        throw new UnsupportedOperationException();
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>RECURSIV</h2>
+                <pre>
+<!--             -->public class SimpleLinkedList implements Iterable {
+<!--             -->    private Node first = null;
+                        
+<!--             -->    @Override
+<!--             -->    public Iterator iterator() {
+<!--             -->        return new SimpleLinkedListIterator(first);
+<!--             -->    }
+                        
+<!--             -->    private class SimpleLinkedListIterator implements Iterator {
+<!--             -->        private Node next = null;
+                            
+<!--             -->        public SimpleLinkedListIterator(Node first) {
+<!--             -->            next = first;
+<!--             -->        }
+                            
+<!--             -->        @Override
+<!--             -->        public boolean hasNext() {
+<!--             -->            return next != null;
+<!--             -->        }
+                    
+<!--             -->        @Override
+<!--             -->        public Object next() {
+<!--             -->            if(!hasNext())
+<!--             -->                throw new java.util.NoSuchElementException("No such element");
+<!--             -->            else {
+<!--             -->                Node current = next;
+<!--             -->                next = next.next;
+<!--             -->                return current.o;
+<!--             -->            }
+<!--             -->        }
+                            
+<!--             -->        @Override
+<!--             -->        public void remove() {
+<!--             -->            throw new UnsupportedOperationException();
+<!--             -->        }
+<!--             -->    }
+                        
+<!--             -->    public boolean add(Object o) {
+<!--             -->        first = add(new Node(o), first);
+<!--             -->        return true;
+<!--             -->    }
+                            
+<!--             -->    //travaille avec copies donc first ne change pas avec seulement add(...)
+<!--             -->    //les valeurs changées doivent lui être remis 
+<!--             -->    private Node add(Node newNode, Node current) {
+<!--             -->        if(current == null)
+<!--             -->            current = newNode;
+<!--             -->        else 
+<!--             -->            current.next = add(newNode, current.next);
+<!--             -->        return current; //on retourne node pour que le changement puisse être sauvegardée comme on travaille avec des copies
+<!--             -->    }
+                        
+<!--             -->    public void clear() { first = null; }
+                        
+<!--             -->    public int size() {
+<!--             -->        return size(first);
+<!--             -->    }
+                        
+<!--             -->    public int size(Node currentNode) {
+<!--             -->        if(currentNode == null)
+<!--             -->            return 0;
+<!--             -->        else
+<!--             -->            return size(currentNode.next)+1;
+<!--             -->    }
+                        
+<!--             -->    public boolean contains(Object o) {
+<!--             -->        return contains(o, first);
+<!--             -->    }
+                        
+<!--             -->    public boolean contains(Object o, Node currentNode) {
+<!--             -->        if(currentNode == null)
+<!--             -->            return false;
+<!--             -->        else if(currentNode.o.equals(o)) //possible car currentNode != null ici
+<!--             -->            return true;
+<!--             -->        else
+<!--             -->            return contains(o, currentNode.next);
+<!--             -->    }
+                        
+<!--             -->    public Object get(int n) {
+<!--             -->        return get(n, 0, first);
+<!--             -->    }
+                        
+<!--             -->    public Object get(int n, int currentNodeIndex, Node currentNode) {
+<!--             -->        if(currentNode == null || currentNodeIndex > n)
+<!--             -->            return null;
+<!--             -->        else if(currentNodeIndex == n)
+<!--             -->            return currentNode.o;
+<!--             -->        else
+<!--             -->            return get(n, currentNodeIndex+1, currentNode.next);
+<!--             -->    }
+                        
+<!--             -->    public int indexOf(Object ob) {
+<!--             -->        return indexOf(ob, 0, first);
+<!--             -->    }
+                        
+<!--             -->    public int indexOf(Object ob, int currentNodeIndex, Node currentNode) {
+<!--             -->        if(currentNode == null)
+<!--             -->            return -1;
+<!--             -->        else if(currentNode.o.equals(ob))
+<!--             -->            return currentNodeIndex;
+<!--             -->        else
+<!--             -->            return indexOf(ob, currentNodeIndex+1, currentNode.next);
+<!--             -->    }
+                        
+<!--             -->    //call by reference : sedgewick
+<!--             -->    //private boolean removeok;
+<!--             -->    public void remove(Object o) {
+<!--             -->        //removeok = false;
+<!--             -->        first = remove(first, o);
+<!--             -->        //return removeok
+<!--             -->    }
+                        
+<!--             -->    public Node remove(Node node, Object o) {
+<!--             -->        if(node != null) {
+<!--             -->            if(node.o.equals(o)) {
+<!--             -->                //removeok = true;
+<!--             -->                node = node.next;
+<!--             -->            }
+<!--             -->            else
+<!--             -->                node.next = remove(node.next, o);
+<!--             -->        }
+<!--             -->        return node;
+<!--             -->    }
+                        
+<!--             -->    public Object set(int n, Object o) {
+<!--             -->        return set(n, o, 0, first);
+<!--             -->    }
+                        
+<!--             -->    public Object set(int n, Object o, int currentNodeIndex, Node currentNode) {
+<!--             -->        if(currentNode == null || currentNodeIndex > n)
+<!--             -->            return null;
+<!--             -->        else if(currentNodeIndex == n) {
+<!--             -->            Object result = currentNode.o;
+<!--             -->            currentNode.o = o;
+<!--             -->            return result;
+<!--             -->        }
+<!--             -->        else 
+<!--             -->            return set(n, o, currentNodeIndex+1, currentNode.next);
+<!--             -->    }
+                        
+<!--             -->    public Object[] toArray() {
+<!--             -->        Object[] result = new Object[size()];
+<!--             -->        result = toArray(result, 0, first);
+<!--             -->        return result;
+<!--             -->    }
+                        
+<!--             -->    public Object[] toArray(Object[] result, int currentNodeIndex, Node currentNode) {
+<!--             -->        if(currentNode != null) {
+<!--             -->            result[currentNodeIndex] = currentNode.o;
+<!--             -->            return toArray(result, currentNodeIndex+1, currentNode.next);
+<!--             -->        }
+<!--             -->        return null;
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="BST">
+                <h1>BST</h1>
+                <pre>
+<!--             -->public int size() {
+<!--             -->    return sizeRecursion(root);
+<!--             -->}
+                    
+<!--             -->private int sizeRecursion(Node n) {
+<!--             -->    if(n == null)
+<!--             -->        return 0;
+<!--             -->    else 
+<!--             -->        return 1 + sizeRecursion(n.left) + sizeRecursion(n.right);
+<!--             -->}
+                    
+<!--             -->public Object[] toArray() {
+<!--             -->    Object[] result = new Object[size()];
+<!--             -->    if(mode == PREORDER)
+<!--             -->        toArrayPreorderRecursion(root, result, 0);
+<!--             -->    return result;
+<!--             -->}
+                    
+<!--             -->private int toArrayPreorderRecursion(Node n, Object[] ar, int index) {
+<!--             -->    if(n != null) {
+<!--             -->        ar[index++] = n.data;
+<!--             -->        index = toArrayPreorderRecursion(n.left, ar, index);
+<!--             -->        index = toArrayPreorderRecursion(n.right, ar, index);
+<!--             -->    }
+<!--             -->    return index;
+<!--             -->}
+                    
+<!--             -->private int toArrayInorderRecursion(Node n, Object[] ar, int index) {
+<!--             -->    if(n != null) {
+<!--             -->        index = toArrayInorderRecursion(n.left, ar, index);
+<!--             -->        ar[index++] = n.data;
+<!--             -->        index = toArrayInorderRecursion(n.right, ar, index);
+<!--             -->    }
+<!--             -->    return index;
+<!--             -->}
+                    
+<!--             -->private int toArrayPostorderRecursion(Node n, Object[] ar, int index) {
+<!--             -->    if(n != null) {
+<!--             -->        index = toArrayPostorderRecursion(n.left, ar, index);
+<!--             -->        index = toArrayPostorderRecursion(n.right, ar, index);
+<!--             -->        ar[index++] = n.data;
+<!--             -->    }
+<!--             -->    return index;
+<!--             -->}
+                    
+<!--             -->public int getDepth() {
+<!--             -->    return depthRecursion(root);
+<!--             -->}
+                    
+<!--             -->private int depthRecursion(Node n) {
+<!--             -->    if(n == null)
+<!--             -->        return 0;
+<!--             -->    else
+<!--             -->        return 1 + Math.max(depthRecursion(n.left), depthRecursion(n.right));
+<!--             -->}
+                    
+<!--             -->private void updateObservers() {
+<!--             -->    setChanged();
+<!--             -->    notifyObservers();
+<!--             -->}
+                    
+<!--             -->public StringBST() {
+<!--             -->    root = null;
+<!--             -->    updateObservers();
+<!--             -->}
+                    
+<!--             -->public void printInorder() {
+<!--             -->    printInorderRecursion(root);
+<!--             -->}
+                    
+<!--             -->private void printInorderRecursion(Node n) {
+<!--             -->    if(n != null) {
+<!--             -->        printInorderRecursion(n.left);
+<!--             -->        System.out.println(n.data);
+<!--             -->        printInorderRecursion(n.right);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public Node getRoot() { return root; }
+                    
+<!--             -->public void setMode(int mode) {
+<!--             -->    if(mode == PREORDER || mode == INORDER || mode == POSTORDER)
+<!--             -->        this.mode = mode;
+<!--             -->    updateObservers();
+<!--             -->}
+                    
+<!--             -->public int getMode() { return mode; }
+                    
+<!--             -->public boolean isEmpty() { return root == null; }
+                    
+<!--             -->public boolean add(String data) {
+<!--             -->    addRecursion(root, data);
+<!--             -->    updateObservers();
+<!--             -->    return true;
+<!--             -->}
+                    
+<!--             -->private Node addRecursion(Node n, String data) {
+<!--             -->    if(n == null)
+<!--             -->        n = new Node(data);
+<!--             -->    else {
+<!--             -->        if(data.compareTo(n.data) < 0)
+<!--             -->            n.left = addRecursion(n.left, data);
+<!--             -->        else
+<!--             -->            n.right = addRecursion(n.right, data);
+<!--             -->    }
+<!--             -->    return n;
+<!--             -->}
+                    
+<!--             -->public void clear() { 
+<!--             -->    root = null; 
+<!--             -->    updateObservers();
+<!--             -->}
+                    
+<!--             -->public boolean contains(String data) {
+<!--             -->    return containsRecursion(root, data);
+<!--             -->}
+                    
+<!--             -->private boolean containsRecursion(Node n, String data) {
+<!--             -->    if(n == null)
+<!--             -->        return false;
+<!--             -->    else if(n.data.compareTo(data) == 0)
+<!--             -->        return true;
+<!--             -->    else if(n.data.compareTo(data) > 0)
+<!--             -->        return containsRecursion(n.left, data);
+<!--             -->    else
+<!--             -->        return containsRecursion(n.right, data);
+<!--             -->}
+                    
+<!--             -->public boolean isLeaf(Node n) {
+<!--             -->    return n != null && n.left == null && n.right == null;
+<!--             -->}
+                </pre>
+            </div>
+
+            <div id="exercice-div">
+                <h1>EXERCICES</h1>
+                <a href="./exercices/G01_Labyrinth.7z" download>
+                    <pre>G01 - Labyrinth</pre>
+                </a>
+                <a href="./exercices/G02_Reversi.7z" download="G02 - Reversi">
+                    <pre>G02 - Reversi</pre></a>
+            </div>
+        </div>            
+    </body>
+</html>

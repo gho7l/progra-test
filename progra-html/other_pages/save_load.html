@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>test</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <a href="../index.html"><li>HOME</li></a>
+                    <a href="sort.html"><li>SORT</li></a>
+                    <a href="save_load.html"><li class="active">SAVE & LOAD</li></a>
+                    <a href="array.html"><li>ARRAY</li></a>
+                    <a href="interface.html"><li>INTERFACE</li></a>
+                    <a href="exception.html"><li>EXCEPTION</li></a>
+                    <a href="search.html"><li>SEARCH</li></a>
+                    <a href="string.html"><li>STRING</li></a>
+                    <a href="recursives.html"><li>RECURSIVES</li></a>
+                    <a href="linkedlist.html"><li>LINKEDLIST</li></a>
+                    <a href="bst.html"><li>BST</li></a>
+                    <a href="trivia.html"><li>TRIVIA</li></a>
+                    <a href="exercices.html"><li>EXERCICES</li></a>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1>SAVE & LOAD</h1>
+            <div id="save-load-div">
+                <h2>DATA</h2>
+                <pre id="data-save-load">
+<!--             -->public void saveToDataFile(File filename) throws IOEXception {
+<!--             -->    try(DataOutputStream out = new DataOutputStream(
+<!--             -->        new BufferedOutputStream(new FileOutputStream(fileName+".dat")))) {
+<!--             -->        for(int i = 0; i &lt; al.size(); i++) 
+<!--             -->            out.writeInt(al.get(i));
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromDataFile(File fileName) 
+<!--             -->    throws IOEXception, FileNotFoundException {
+<!--             -->    try(DataInputStream in = new DataInputStream(
+<!--             -->        new BufferedInputStream(new FileInputStream(filename+".dat")))) {
+<!--             -->        boolean eof = false;
+<!--             -->        while(!eof) {
+<!--             -->            try {
+<!--             -->                al.add(new Object(in.readInt(), in.readInt()));
+<!--             -->            }
+<!--             -->            catch(EOFException e) {
+<!--             -->                eof = true;
+<!--             -->            }
+<!--             -->        }
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>TEXT</h2>
+                <pre id="text-save-load">
+<!--             -->public void saveToTextFile(File filename) throws IOException {
+<!--             -->    try(PrintWriter out = new PrintWriter(new FileWriter(filename+".txt"))) {
+<!--             -->        for(int i = 0; i &lt; al.size(); i++) {
+<!--             -->            out.println(al.get(i).toString();
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromTextFile(File filename) 
+<!--             -->    throws IOEXception, FileNotFoundException {
+<!--             -->    al = new ArrayList&lt;&gt;();
+<!--             -->    try(BufferedReader in = new BufferedReader(new FileReader(filename+".txt"))) {
+<!--             -->        String l;
+<!--             -->        while((l = in.readLine()) != null) {
+<!--             -->            String[] line = l.split(" ");
+<!--             -->            al.add(...);
+<!--             -->        }
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>BINARY</h2>
+                <pre id="binary-save-load">
+<!--             -->!!! implements Serializable
+<!--             -->public void saveToBinaryFile(File filename) throws IOException {
+<!--             -->    try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename+".bin") {
+<!--             -->        out.writeObject(al);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromBinaryFile(File filename) throws IOException, ClassNotFoundException {
+<!--             -->    try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename+".bin"))) {
+<!--             -->        al = (ArrayList&lt;Object&gt;)in.readObject();
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>XML</h2>
+                <pre id="xml-save-load">
+<!--             -->!!! external library xstream
+<!--             -->public void saveToXmlFile(File filename) throws IOException {
+<!--             -->    XStream xstream = new XStream(new DomDriver("UTF-8");
+<!--             -->    String xml = xstream.toXML(al);
+<!--             -->    try(PrintWriter out = new PrintWriter(new FileWriter(filename+".xml"))) {
+<!--             -->        out.println("&lt;?xml version=\"1.0\" encoding=\"UTF-8\" ?&gt;");
+<!--             -->        out.pritnln(xml);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public void loadFromXMLFile(File filename) throws IOException {
+<!--             -->    XStream xstream = new XStream(new DomDriver("UTF-8");
+<!--             -->    try(BufferedReader in = new BufferedReader(new FileReader(filename+".xml"))) {
+<!--             -->        al = (ArrayList&lt;Object&gt;) xstream.fromXML(in);
+<!--             -->    }
+<!--             -->    catch(com.thoughtworks.xstream.mapper.CannotResolveClassException e) {
+<!--             -->        JOptionPane.showMessageDialog(null, "Cannot resolve XML Tags in file '"+filename+"'",
+<!--             -->        "XML read Error", JOptionPane.ERROR_MESSAGE);
+<!--             -->    }
+<!--             -->}
+                </pre>
+                <h2>FILECHOOSER</h2>
+                <pre id="filechooser">
+<!--             -->private String currentFile = System.getProperty("user.dir");
+<!--             -->private JFileChooser jfc = new JFileChooser();
+<!--             -->private final String WORKFILE="rp-workfile.csv"; 
+                    
+<!--             -->export() {
+<!--             -->    try {
+<!--             -->        jfc.setCurrentDirectory(new File(currentFile));
+<!--             -->        if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+<!--             -->            currentFile = jfc.getSelectedFile().getAbsolutePath();
+<!--             -->            al.save(currentFile);
+<!--             -->        }
+<!--             -->    }
+<!--             -->    catch(IOEXception e) {
+<!--             -->        JOptionPane.showMessageDialog(this, "Error while exporting");
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->import() {
+<!--             -->    FileNameExtensionFilter csv = new FileNameExtensionFilter("csv (*.csv)", "csv");
+<!--             -->    jfc.addChoosableFileFilter(csv);
+<!--             -->    jfc.setAcceptAllFileFilterUsed(true);
+<!--             -->    
+<!--             -->    try {
+<!--             -->        jfc.setCurrentDirectory(new File(currentFile));
+<!--             -->        if(jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+<!--             -->            currentFile = jfc.getSelectedFile().getAbsolutePath();
+<!--             -->            al.load(currentFile);
+<!--             -->        }
+<!--             -->    }
+<!--             -->    catch(IOEXception e) {
+<!--             -->        JOptionPane.showMessageDialog(this, "Error while importing");
+<!--             -->    } catch(InvalidFileFormatException ex) {
+<!--             -->        JOptionPane.showMessageDialog(this, "Error while importing");
+<!--             -->    }
+<!--             -->}
+                </pre>
+            </div>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>test</title>
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <a href="../index.html"><li>HOME</li></a>
+                    <a href="sort.html"><li>SORT</li></a>
+                    <a href="save_load.html"><li>SAVE & LOAD</li></a>
+                    <a href="array.html"><li>ARRAY</li></a>
+                    <a href="interface.html"><li>INTERFACE</li></a>
+                    <a href="exception.html"><li>EXCEPTION</li></a>
+                    <a href="search.html"><li>SEARCH</li></a>
+                    <a href="string.html"><li>STRING</li></a>
+                    <a href="recursives.html"><li>RECURSIVES</li></a>
+                    <a href="linkedlist.html"><li>LINKEDLIST</li></a>
+                    <a href="bst.html"><li class="active">BST</li></a>
+                    <a href="trivia.html"><li>TRIVIA</li></a>
+                    <a href="exercices.html"><li>EXERCICES</li></a>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1>BST</h1>
+            <div id="BST">
+                <pre>
+<!--             -->public int size() {
+<!--             -->    return sizeRecursion(root);
+<!--             -->}
+                    
+<!--             -->private int sizeRecursion(Node n) {
+<!--             -->    if(n == null)
+<!--             -->        return 0;
+<!--             -->    else 
+<!--             -->        return 1 + sizeRecursion(n.left) + sizeRecursion(n.right);
+<!--             -->}
+                    
+<!--             -->public Object[] toArray() {
+<!--             -->    Object[] result = new Object[size()];
+<!--             -->    if(mode == PREORDER)
+<!--             -->        toArrayPreorderRecursion(root, result, 0);
+<!--             -->    return result;
+<!--             -->}
+                    
+<!--             -->private int toArrayPreorderRecursion(Node n, Object[] ar, int index) {
+<!--             -->    if(n != null) {
+<!--             -->        ar[index++] = n.data;
+<!--             -->        index = toArrayPreorderRecursion(n.left, ar, index);
+<!--             -->        index = toArrayPreorderRecursion(n.right, ar, index);
+<!--             -->    }
+<!--             -->    return index;
+<!--             -->}
+                    
+<!--             -->private int toArrayInorderRecursion(Node n, Object[] ar, int index) {
+<!--             -->    if(n != null) {
+<!--             -->        index = toArrayInorderRecursion(n.left, ar, index);
+<!--             -->        ar[index++] = n.data;
+<!--             -->        index = toArrayInorderRecursion(n.right, ar, index);
+<!--             -->    }
+<!--             -->    return index;
+<!--             -->}
+                    
+<!--             -->private int toArrayPostorderRecursion(Node n, Object[] ar, int index) {
+<!--             -->    if(n != null) {
+<!--             -->        index = toArrayPostorderRecursion(n.left, ar, index);
+<!--             -->        index = toArrayPostorderRecursion(n.right, ar, index);
+<!--             -->        ar[index++] = n.data;
+<!--             -->    }
+<!--             -->    return index;
+<!--             -->}
+                    
+<!--             -->public int getDepth() {
+<!--             -->    return depthRecursion(root);
+<!--             -->}
+                    
+<!--             -->private int depthRecursion(Node n) {
+<!--             -->    if(n == null)
+<!--             -->        return 0;
+<!--             -->    else
+<!--             -->        return 1 + Math.max(depthRecursion(n.left), depthRecursion(n.right));
+<!--             -->}
+                    
+<!--             -->private void updateObservers() {
+<!--             -->    setChanged();
+<!--             -->    notifyObservers();
+<!--             -->}
+                    
+<!--             -->public StringBST() {
+<!--             -->    root = null;
+<!--             -->    updateObservers();
+<!--             -->}
+                    
+<!--             -->public void printInorder() {
+<!--             -->    printInorderRecursion(root);
+<!--             -->}
+                    
+<!--             -->private void printInorderRecursion(Node n) {
+<!--             -->    if(n != null) {
+<!--             -->        printInorderRecursion(n.left);
+<!--             -->        System.out.println(n.data);
+<!--             -->        printInorderRecursion(n.right);
+<!--             -->    }
+<!--             -->}
+                    
+<!--             -->public Node getRoot() { return root; }
+                    
+<!--             -->public void setMode(int mode) {
+<!--             -->    if(mode == PREORDER || mode == INORDER || mode == POSTORDER)
+<!--             -->        this.mode = mode;
+<!--             -->    updateObservers();
+<!--             -->}
+                    
+<!--             -->public int getMode() { return mode; }
+                    
+<!--             -->public boolean isEmpty() { return root == null; }
+                    
+<!--             -->public boolean add(String data) {
+<!--             -->    addRecursion(root, data);
+<!--             -->    updateObservers();
+<!--             -->    return true;
+<!--             -->}
+                    
+<!--             -->private Node addRecursion(Node n, String data) {
+<!--             -->    if(n == null)
+<!--             -->        n = new Node(data);
+<!--             -->    else {
+<!--             -->        if(data.compareTo(n.data) < 0)
+<!--             -->            n.left = addRecursion(n.left, data);
+<!--             -->        else
+<!--             -->            n.right = addRecursion(n.right, data);
+<!--             -->    }
+<!--             -->    return n;
+<!--             -->}
+                    
+<!--             -->public void clear() { 
+<!--             -->    root = null; 
+<!--             -->    updateObservers();
+<!--             -->}
+                    
+<!--             -->public boolean contains(String data) {
+<!--             -->    return containsRecursion(root, data);
+<!--             -->}
+                    
+<!--             -->private boolean containsRecursion(Node n, String data) {
+<!--             -->    if(n == null)
+<!--             -->        return false;
+<!--             -->    else if(n.data.compareTo(data) == 0)
+<!--             -->        return true;
+<!--             -->    else if(n.data.compareTo(data) > 0)
+<!--             -->        return containsRecursion(n.left, data);
+<!--             -->    else
+<!--             -->        return containsRecursion(n.right, data);
+<!--             -->}
+                    
+<!--             -->public boolean isLeaf(Node n) {
+<!--             -->    return n != null && n.left == null && n.right == null;
+<!--             -->}
+                </pre>
+            </div>
+        </main>
+    </body>
+</html>

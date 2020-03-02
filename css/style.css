@@ -6,6 +6,7 @@ body {
     padding: 10px;
     background-color: blue;
     display: inline-flex;
+    flex-direction: row;
 }
 
 #main div {
@@ -42,4 +43,66 @@ pre {
     margin: 0;
     padding: 4px 7px;
     border-top: black solid 1px;
+}
+
+header nav ul{
+    display: inline-flex;
+    flex-direction: column;
+    list-style: none;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    border: black 2px solid;
+    height: 100%;
+    width: 15%;
+    background-color: burlywood;
+}
+
+header nav ul li {
+    color: violet;
+    padding: 10px;
+    text-align: center;
+    border-bottom: black 2px solid;
+    font-size: 14px;
+    margin: -2px 0;
+}
+
+header nav ul li:hover {
+    border-top: black 2px solid;
+    background-color: seagreen;
+    font-size: 18px;
+    color: red;
+}
+
+main {
+    left: 15%;
+    top: 0;
+    width: 85%;
+    height: 100%;
+    margin: 0;
+    position: fixed;
+    overflow-y: scroll;
+    background-color: seagreen;
+}
+
+.active {
+    border-top: black 2px solid;
+    background-color: chocolate;
+    font-size: 18px;
+    color: red;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: violet;
+    text-decoration: none;
+}
+
+h2 {
+    color: orange;
 }
